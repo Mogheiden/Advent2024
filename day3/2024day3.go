@@ -8,9 +8,11 @@ import (
 	"regexp"
 	"strconv"
 	"strings"
+	"time"
 )
 
 func main(){
+	start := time.Now()
 	data := parseInputReports("day3.txt")
 	matches := getMulCalls(data)
 	enabled := true
@@ -34,6 +36,7 @@ func main(){
 	}
 	fmt.Println(part1answer)
 	fmt.Println(part2answer)
+	fmt.Println(time.Since(start))
 }
 
 func parseInputReports(raw string) string {
