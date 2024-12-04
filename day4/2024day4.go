@@ -17,6 +17,9 @@ func main(){
 
 	for i:= 0; i < len(day4data);i++{
 		for j:=0; j < len(day4data[0]); j++{
+			if day4data[i][j] == 'm' || day4data[i][j] == 'a'{
+				continue
+			}
 			substring := make([]string, 0)
 			if j < len(day4data[0]) - 3{
 				for k:= 0; k < 4; k++{
@@ -55,6 +58,9 @@ func main(){
 
 	for i:= 0; i<len(day4data) - 2; i++{
 		for j:= 0; j<len(day4data[0]) - 2; j++{
+			if day4data[i][j] == 'x' || day4data[i][j] == 'a'{
+				continue
+			}
 			xSlice1 := make([]string, 0)
 			xSlice2 := make([]string, 0)
 
