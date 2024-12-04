@@ -20,35 +20,34 @@ func main(){
 			if day4data[i][j] == 'm' || day4data[i][j] == 'a'{
 				continue
 			}
-			substring := make([]string, 0)
+			var substring [4]byte
 			if j < len(day4data[0]) - 3{
 				for k:= 0; k < 4; k++{
-					substring = append(substring,string(day4data[i][j+k]))
+					substring[k] = day4data[i][j+k]
 				}	
 				if joiner(substring){
 					part1Answer ++
 				}			
 			}
-			substring = make([]string, 0)
 			if i < len(day4data) - 3{
 				for k:= 0; k < 4; k++{
-					substring = append(substring,string(day4data[i+k][j]))
+					substring[k] = day4data[i+k][j]
 				}	
 				if joiner(substring){
 					part1Answer ++
 				}			
 			}
-			substring = make([]string, 0)
-			substring1 := make([]string,0)
+
+			var substring2 [4]byte
 			if i < len(day4data) - 3 &&  j<len(day4data[0])-3{
 				for k:= 0; k < 4; k++{
-					substring = append(substring,string(day4data[i+k][j+k]))
-					substring1 = append(substring1, string(day4data[i+3-k][j+k]))
+					substring [k] = day4data[i+k][j+k]
+					substring2[k] = day4data[i+3-k][j+k]
 				}	
 				if joiner(substring){
 					part1Answer++
 				}
-				if joiner(substring1){
+				if joiner(substring2){
 					part1Answer++
 				}		
 			}
@@ -58,17 +57,18 @@ func main(){
 
 	for i:= 0; i<len(day4data) - 2; i++{
 		for j:= 0; j<len(day4data[0]) - 2; j++{
-			if day4data[i][j] == 'x' || day4data[i][j] == 'a'{
+			if day4data[i][j] == 'x' || day4data[i][j] == 'a' || day4data[i][j+2] == 'x' || day4data[i][j+2] == 'a'{
 				continue
 			}
-			xSlice1 := make([]string, 0)
-			xSlice2 := make([]string, 0)
+			
+			var x1 [4]byte
+			var x2 [4]byte
 
 			for k:= 0; k < 3; k++{
-				xSlice1 = append(xSlice1,string(day4data[i+k][j+k]))
-				xSlice2 = append(xSlice2, string(day4data[i+2-k][j+k]))
+				x1[k] = day4data[i+k][j+k]
+				x2[k] = day4data[i+2-k][j+k]
 			}
-			if doublejoiner(xSlice1,xSlice2){
+			if xmasjoin(x1)&&xmasjoin(x2){
 				part2Answer++
 			}
 			// fmt.Println(i,j)
@@ -80,19 +80,55 @@ func main(){
 	fmt.Println(time.Since(start))
 }
 
-func joiner(data []string) bool{
-	joined := strings.Join(data, "")
-	if joined == "XMAS" || joined == "SAMX"{
+func joiner(data [4]byte) bool{
+	forward := "XMAS"
+	backward := "SAMX"
+	valid := true
+	for i:= 0; i < 4; i++{
+		if data[i]!= forward[i]{
+			valid = false
+			break
+		}
+	}
+	if valid{
+		return true
+	}
+	valid = true
+	for i:= 0; i < 4; i++{
+		if data[i]!= backward[i]{
+			valid = false
+			break
+		}
+	}
+	if valid {
 		return true
 	}
 	return false
 }
 
-func doublejoiner(data1 []string, data2 []string) bool{
-	joined1 := strings.Join(data1, "")
-	joined2 := strings.Join(data2, "")
-	if (joined1 == "MAS" || joined1 == "SAM") && (joined2 == "MAS" || joined2 == "SAM"){
-		return true
+func xmasjoin(data [4]byte) bool{
+	forward := "MAS"
+	backward := "SAM"
+
+	data1Valid := true
+
+
+	for i:= 0; i < 3; i++{
+		if data[i]!= forward[i]{
+			data1Valid = false
+			break
+		}
 	}
-	return false
+	
+	if !data1Valid{
+		data1Valid = true
+		for i:= 0; i < 3; i++{
+			if data[i]!= backward[i]{
+				data1Valid = false
+				break
+			}
+
+		}
+	}
+	return data1Valid
 }
