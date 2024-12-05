@@ -22,7 +22,9 @@ func main(){
 		orderManual[splitPair[0]] = append(orderManual[splitPair[0]], splitPair[1])
 	}
 	part1Answer := 0
-	for _, instruction := range instructions{
+	part2Answer := 0
+	var invalidIndexes []int
+	for i, instruction := range instructions{
 		pageList := strings.Split(instruction, ",")
 		bestIndex := len(pageList)
 		midIndex := bestIndex/2
@@ -50,6 +52,7 @@ func main(){
 				}
 			}
 			if !valid{
+				invalidIndexes = append(invalidIndexes,i)
 				break
 			}
 			// // fmt.Println(instruction, bestIndex,orderManual[instruction])
@@ -66,6 +69,32 @@ func main(){
 		}
 
 	}
+	for _, index := range invalidIndexes{
+		pageblob := instructions[index]
+		pageList := strings.Split(pageblob, ",")
+		bestIndex := len(pageList)
+		midIndex := bestIndex/2
+
+		for _, page := range pageList{
+			predecessors, _ := orderManual[page]
+
+			// fmt.Println(instruction, predecessors)
+			for _, predecessor := range predecessors{
+				if slices.Contains(pageList, predecessor){
+					bestIndex --
+				}
+			}
+			// fmt.Println(instruction, bestIndex,orderManual[instruction])
+			if bestIndex == midIndex + 1{
+				val, _ := strconv.Atoi(page)
+				// fmt.Println(val, pageList) 
+				part2Answer += val
+			}
+			bestIndex = len(pageList)
+		}
+
+	}
 	fmt.Println(part1Answer)
+	fmt.Println(part2Answer)	
 	fmt.Println(time.Since(start))
 }
