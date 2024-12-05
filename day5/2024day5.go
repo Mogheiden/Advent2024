@@ -33,7 +33,6 @@ func main(){
 		for index, page := range pageList{
 			predecessors, _ := orderManual[page]
 
-			// fmt.Println(instruction, predecessors)
 			for _, predecessor := range predecessors{
 				if slices.Contains(pageList, predecessor){
 					// bestIndex --
@@ -55,13 +54,6 @@ func main(){
 				invalidIndexes = append(invalidIndexes,i)
 				break
 			}
-			// // fmt.Println(instruction, bestIndex,orderManual[instruction])
-			// if bestIndex == midIndex{
-			// 	val, _ := strconv.Atoi(instruction)
-			// 	// fmt.Println(val)
-			// 	part1Answer += val
-			// }
-			// bestIndex = len(instructionList)
 		}
 		if valid{
 			val, _ := strconv.Atoi(pageList[midIndex])
