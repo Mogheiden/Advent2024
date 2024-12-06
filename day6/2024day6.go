@@ -5,6 +5,7 @@ import (
 	"os"
 	"slices"
 	"strings"
+	"sync"
 	"time"
 )
 
@@ -59,17 +60,35 @@ func main() {
 
 	}
 	part1Answer = len(visitedCoords)
-	number := 0
-	for visitedCoord, _ := range visitedCoords {
+
+	// for visitedCoord, _ := range visitedCoords {
+	// 	if visitedCoord[0] == startingPosY && visitedCoord[1] == startingPosX {
+	// 		continue
+	// 	}
+	// 	if loopDetector(startingPosX, startingPosY, 0, day6data, visitedCoord[0], visitedCoord[1]) {
+	// 		part2Answer++
+	// 	}
+	// }
+
+	var mu sync.Mutex
+	var wg sync.WaitGroup
+
+	for visitedCoord := range visitedCoords {
 		if visitedCoord[0] == startingPosY && visitedCoord[1] == startingPosX {
 			continue
 		}
-		if loopDetector(startingPosX, startingPosY, 0, day6data, visitedCoord[0], visitedCoord[1]) {
-			part2Answer++
-		}
-		number++
-	}
+		wg.Add(1)
+		go func(visitedCoord [2]int) {
+			if loopDetector(startingPosX, startingPosY, 0, day6data, visitedCoord[0], visitedCoord[1]) {
+				mu.Lock()
+				part2Answer++
+				mu.Unlock()
+			}
+			defer wg.Done()
+		}(visitedCoord)
 
+	}
+	wg.Wait()
 	fmt.Println(part1Answer)
 	fmt.Println(part2Answer)
 	fmt.Println(time.Since(start))
