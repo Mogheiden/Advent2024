@@ -15,6 +15,7 @@ func main() {
 
 	part1Answer := 0
 	part2Answer := 0
+
 	for _, line := range day7data {
 		splitInput := strings.Split(line, ": ")
 		total, _ := strconv.Atoi(splitInput[0])
