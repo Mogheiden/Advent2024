@@ -122,15 +122,3 @@ func loopDetector(currentPosX int, currentPosY int, currentDir int, paraMap []st
 		currentPosX = nextX
 	}
 }
-
-func replaceAtIndex(in string, index int) string {
-	var stringarray []string
-	for i := 0; i < len(in); i++ {
-		if i == index {
-			stringarray = append(stringarray, "#")
-			continue
-		}
-		stringarray = append(stringarray, string(in[i]))
-	}
-	return strings.Join(stringarray, "")
-}
