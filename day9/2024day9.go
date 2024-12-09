@@ -37,8 +37,7 @@ func main() {
 			emptyBlockId++
 		}
 	}
-	// fmt.Println(filledMap)
-	// fmt.Println(emptyMap)
+
 	maxLen := pc
 	pc = 0
 	for {
@@ -58,8 +57,7 @@ func main() {
 		}
 		fileID--
 	}
-	// fmt.Println(part2FilledMap)
-	// fmt.Println(emptyMap)
+
 	emptyMapSize := len(emptyMap)
 
 	for i := len(part2FilledMap) - 1; i >= 0; i-- {
@@ -79,8 +77,7 @@ func main() {
 			emptyMap[j] = currentSpace[len(currentBlock):]
 		}
 	}
-	// fmt.Println(emptyMap)
-	// fmt.Println(part2FilledMap)
+
 	part1Answer := 0
 	part2Answer := 0
 
