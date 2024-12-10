@@ -25,7 +25,7 @@ func main() {
 
 	directions := [][]int{{-1, 0}, {0, 1}, {1, 0}, {0, -1}}
 
-	for i, _ := range day6data {
+	for i := range day6data {
 		for j, val := range day6data[i] {
 			if val == '^' {
 				currentPosY = i
