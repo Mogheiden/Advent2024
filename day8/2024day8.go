@@ -19,8 +19,8 @@ func main() {
 	antiNodes := make(map[[2]int]bool)
 	part2AntiNodes := make(map[[2]int]bool)
 
-	for i, _ := range day8data {
-		for j, _ := range day8data[0] {
+	for i := range day8data {
+		for j := range day8data[0] {
 			if day8data[i][j] != '.' {
 				key := day8data[i][j]
 				value := [2]int{i, j}
@@ -37,8 +37,8 @@ func main() {
 	}
 
 	for _, antennaList := range antennaMap {
-		for i, _ := range antennaList {
-			for j, _ := range antennaList {
+		for i := range antennaList {
+			for j := range antennaList {
 				if antennaList[i] == antennaList[j] {
 					continue
 				}
