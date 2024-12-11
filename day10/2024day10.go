@@ -11,7 +11,7 @@ import (
 func main() {
 	start := time.Now()
 	bytesread, _ := os.ReadFile("day10.txt")
-	day4data := strings.Split(string(bytesread), "\n")
+	day10data := strings.Split(string(bytesread), "\n")
 
 	var convertedMap [][]int
 
@@ -19,10 +19,10 @@ func main() {
 	part2Answer := 0
 	var trailheads [][2]int
 
-	for i := 0; i < len(day4data); i++ {
+	for i := 0; i < len(day10data); i++ {
 		var row []int
-		for j := 0; j < len(day4data[0]); j++ {
-			value, _ := strconv.Atoi(string(day4data[i][j]))
+		for j := 0; j < len(day10data[0]); j++ {
+			value, _ := strconv.Atoi(string(day10data[i][j]))
 			// fmt.Println(value)
 			if value == 0 {
 				trailheadCoord := [2]int{i, j}
