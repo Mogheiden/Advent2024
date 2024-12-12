@@ -48,7 +48,7 @@ func main() {
 	for _, value := range newMap {
 		part2Answer += value
 	}
-
+	// fmt.Println(len(newMap))
 	fmt.Println(part1Answer)
 	fmt.Println(part2Answer)
 	fmt.Println(time.Since(start))
