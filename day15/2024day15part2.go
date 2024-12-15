@@ -176,7 +176,7 @@ func pushTiles(boxMap [][]string, current [2]int, direction [2]int) [][]string {
 			tileSet[newRightTile] = true
 		}
 	}
-	for key, _ := range tileSet {
+	for key := range tileSet {
 		tileBehind := [2]int{key.tileOriginal[0] - direction[0], key.tileOriginal[1] - direction[1]}
 		if !affectedCoords[tileBehind] {
 			boxMap[key.tileOriginal[0]][key.tileOriginal[1]] = "."
