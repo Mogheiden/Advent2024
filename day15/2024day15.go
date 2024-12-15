@@ -15,7 +15,6 @@ package main
 // 	var boxMapArray [][]string
 
 // 	part1Answer := 0
-// 	part2Answer := 0
 
 // 	for _, row := range boxMap {
 // 		arrayRow := strings.Split(row, "")
@@ -79,7 +78,6 @@ package main
 // 	}
 
 // 	fmt.Println(part1Answer)
-// 	fmt.Println(part2Answer)
 // 	fmt.Println(time.Since(start))
 // }
 
