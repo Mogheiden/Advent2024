@@ -108,22 +108,15 @@ func main() {
 	fmt.Println(time.Since(start))
 }
 
-// Function to perform the Bron-Kerbosch algorithm
 func bronKerbosch(R, P, X map[string]bool, adj map[string]map[string]bool, cliques *[][]string) {
-	// If P and X are empty, R is a maximal clique
 	if len(P) == 0 && len(X) == 0 {
-		// Convert the set R to a slice and add it to the list of cliques
 		clique := make([]string, 0, len(R))
 		for vertex := range R {
 			clique = append(clique, vertex)
 		}
-		// fmt.Println(clique)
 		*cliques = append(*cliques, clique)
 	}
-
-	// Choose a vertex from P
 	for vertex := range P {
-		// Recursively call the algorithm with updated sets
 		newR := make(map[string]bool)
 		for v := range R {
 			newR[v] = true
@@ -144,10 +137,7 @@ func bronKerbosch(R, P, X map[string]bool, adj map[string]map[string]bool, cliqu
 			}
 		}
 
-		// Recursively call the Bron-Kerbosch algorithm
 		bronKerbosch(newR, newP, newX, adj, cliques)
-
-		// Move vertex from P to X
 		delete(P, vertex)
 		X[vertex] = true
 	}
