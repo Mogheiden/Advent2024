@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"math"
 	"os"
 	"strconv"
 	"strings"
@@ -14,17 +15,17 @@ func main() {
 	day22data := strings.Split(string(bytesread), "\n")
 	part1Answer := 0
 	part2Answer := 0
-	ranges := make(map[string][]int)
+	ranges := make(map[int][]int)
 
 	for _, secret := range day22data {
-		visited := make(map[string]struct{})
+		visited := make(map[int]struct{})
 		changes := []int{}
 		seed, _ := strconv.Atoi(secret)
 		for range 2000 {
 			nextSeed := process(seed)
 			changes = append(changes, (nextSeed%10)-(seed%10))
 			if len(changes) == 4 {
-				key := strings.Join(intSliceToStringSlice(changes), ",")
+				key := hashMaker(changes)
 				if _, found := visited[key]; !found {
 					if _, exists := ranges[key]; !exists {
 						ranges[key] = []int{}
@@ -61,10 +62,10 @@ func process(seed int) int {
 	return seed
 }
 
-func intSliceToStringSlice(slice []int) []string {
-	stringSlice := make([]string, len(slice))
+func hashMaker(slice []int) int {
+	value := float64(0)
 	for i, val := range slice {
-		stringSlice[i] = strconv.Itoa(val)
+		value += float64(val) * math.Pow10(i)
 	}
-	return stringSlice
+	return int(value)
 }
