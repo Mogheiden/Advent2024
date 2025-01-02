@@ -1,7 +1,6 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
 	"os"
 	"strings"
@@ -36,48 +35,21 @@ func getDesignCounts(patterns []string, designs []string) map[string]int {
 
 func main() {
 	start := time.Now()
-	file, err := os.Open("day19.txt")
-	if err != nil {
-		fmt.Println("Error opening file:", err)
-		return
-	}
-	defer file.Close()
-
-	patterns := make([]string, 0)
-	designs := make([]string, 0)
-
-	i := 0
-	scanner := bufio.NewScanner(file)
-	for scanner.Scan() {
-		line := scanner.Text()
-		if line == "" {
-			continue
-		} else if i == 0 {
-			patterns = strings.Split(line, ",")
-			for j, pattern := range patterns {
-				patterns[j] = strings.TrimSpace(pattern)
-			}
-			i++
-		} else {
-			designs = append(designs, line)
-		}
-	}
+	bytesread, _ := os.ReadFile("day19.txt")
+	day19data := strings.Split(string(bytesread), "\n\n")
+	patterns := strings.Split(day19data[0], ", ")
+	designs := strings.Split(day19data[1], "\n")
 
 	designCounts := getDesignCounts(patterns, designs)
-	totalPart1 := 0
-	totalPart2 := 0
+	part1Answer := 0
+	part2Answer := 0
 	for _, count := range designCounts {
 		if count > 0 {
-			totalPart1++
+			part1Answer++
 		}
-		totalPart2 += count
+		part2Answer += count
 	}
-	fmt.Printf("Part 1: %d\n", totalPart1)
-	fmt.Printf("Part 2: %d\n", totalPart2)
-
-	if err := scanner.Err(); err != nil {
-		fmt.Println("Error reading file:", err)
-		return
-	}
+	fmt.Println(part1Answer)
+	fmt.Println(part2Answer)
 	fmt.Println(time.Since(start))
 }
